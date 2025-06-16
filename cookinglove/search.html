@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Search Recipes | Cooking Love</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Optional: Tailwind Config for custom colors -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'midnight-green': '#004654',
+            'cinereous': '#957774',
+            'cherry-blossom-pink': '#eba6a9',
+            'apricot': '#ECB69D',
+            'murrey': '#A01A5B'
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-white text-gray-900 font-sans">
+
+  <header class="bg-midnight-green text-white p-4 shadow">
+    <h1 class="text-2xl font-bold">Cooking Love - Search</h1>
+  </header>
+
+  <main class="p-4 max-w-3xl mx-auto">
+    <div class="mb-6">
+      <input
+        id="searchInput"
+        type="text"
+        placeholder="Search recipes..."
+        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-apricot"
+      />
+    </div>
+
+    <div id="resultsContainer" class="space-y-4"></div>
+    <div id="noResults" class="text-center text-cinereous hidden">No recipes found.</div>
+  </main>
+
+  <script src="search.js"></script>
+</body>
+</html>

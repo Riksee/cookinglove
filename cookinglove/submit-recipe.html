@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Submit Recipe | Cooking Love</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --midnight: #004654;
+      --cinereous: #957774;
+      --cherry: #eba6a9;
+      --apricot: #ECB69D;
+      --murrey: #A01A5B;
+    }
+  </style>
+</head>
+
+<body class="bg-white text-[var(--cinereous)]">
+  <!-- Header -->
+  <header class="bg-[var(--midnight)] text-white px-6 py-4 shadow">
+    <div class="max-w-5xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold tracking-wide">Cooking Love</h1>
+      <nav class="space-x-4">
+        <a href="index.html" class="hover:text-[var(--apricot)]">Home</a>
+        <a href="recipes.html" class="hover:text-[var(--apricot)]">Recipes</a>
+        <a href="favorites.html" class="hover:text-[var(--apricot)]">Favorites</a>
+        <a href="submit-recipe.html" class="hover:text-[var(--apricot)]">Submit</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Form -->
+  <main class="max-w-3xl mx-auto p-6">
+    <h2 class="text-3xl text-[var(--midnight)] font-bold mb-6">Submit Your Recipe</h2>
+    <form id="recipeForm" class="space-y-6 bg-white shadow rounded-lg p-6 border border-[var(--cinereous)]">
+
+      <div>
+        <label class="block text-sm font-semibold mb-1" for="title">Recipe Title</label>
+        <input id="title" name="title" type="text" required class="w-full border border-[var(--cinereous)] p-2 rounded focus:outline-none focus:ring-2 focus:ring-[var(--midnight)]" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1" for="image">Image URL</label>
+        <input id="image" name="image" type="url" placeholder="https://..." class="w-full border border-[var(--cinereous)] p-2 rounded" />
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1" for="ingredients">Ingredients</label>
+        <textarea id="ingredients" name="ingredients" rows="4" required class="w-full border border-[var(--cinereous)] p-2 rounded"></textarea>
+      </div>
+
+      <div>
+        <label class="block text-sm font-semibold mb-1" for="instructions">Instructions</label>
+        <textarea id="instructions" name="instructions" rows="6" required class="w-full border border-[var(--cinereous)] p-2 rounded"></textarea>
+      </div>
+
+      <button type="submit" class="bg-[var(--murrey)] text-white px-6 py-2 rounded hover:bg-[var(--cherry)] transition">Submit Recipe</button>
+
+    </form>
+
+    <p id="successMessage" class="mt-4 text-green-600 font-medium hidden">Recipe submitted successfully!</p>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[var(--midnight)] text-white text-sm py-4 text-center mt-10">
+    &copy; 2025 Cooking Love. Made with ❤️ and fresh ingredients.
+  </footer>
+
+  <script>
+    document.getElementById('recipeForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      
+      // Collect form data
+      const formData = {
+        title: document.getElementById('title').value,
+        image: document.getElementById('image').value,
+        ingredients: document.getElementById('ingredients').value,
+        instructions: document.getElementById('instructions').value
+      };
+  
+      // Send data to backend
+      fetch('http://localhost:3000/submit-recipe', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message === 'Recipe submitted successfully') {
+            document.getElementById('successMessage').classList.remove('hidden');
+            document.getElementById('recipeForm').reset();
+          } else {
+            alert('Failed to submit recipe');
+          }
+        })
+        .catch(error => {
+          alert('Error submitting recipe');
+          console.error(error);
+        });
+    });
+  </script>
+  
+</body>
+
+</html>
