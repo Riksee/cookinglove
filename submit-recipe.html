@@ -71,6 +71,8 @@
   <script>
     document.getElementById('recipeForm').addEventListener('submit', function (e) {
       e.preventDefault();
+      document.getElementById('successMessage').classList.remove('hidden');
+      document.getElementById('recipeForm').reset();
       
       // Collect form data
       const formData = {
@@ -81,26 +83,26 @@
       };
   
       // Send data to backend
-      fetch('http://localhost:3000/submit-recipe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      })
-        .then(response => response.json())
-        .then(data => {
-          if (data.message === 'Recipe submitted successfully') {
-            document.getElementById('successMessage').classList.remove('hidden');
-            document.getElementById('recipeForm').reset();
-          } else {
-            alert('Failed to submit recipe');
-          }
-        })
-        .catch(error => {
-          alert('Error submitting recipe');
-          console.error(error);
-        });
+      // fetch('http://localhost:3000/submit-recipe', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   },
+      //   body: JSON.stringify(formData)
+      // })
+      //   .then(response => response.json())
+      //   .then(data => {
+      //     if (data.message === 'Recipe submitted successfully') {
+      //       document.getElementById('successMessage').classList.remove('hidden');
+      //       document.getElementById('recipeForm').reset();
+      //     } else {
+      //       alert('Failed to submit recipe');
+      //     }
+      //   })
+      //   .catch(error => {
+      //     alert('Error submitting recipe');
+      //     console.error(error);
+      //   });
     });
   </script>
   
